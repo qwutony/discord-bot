@@ -1,3 +1,4 @@
+const fs = require('fs');
 const Discord = require('discord.js');
 
 module.exports = {
@@ -5,11 +6,19 @@ module.exports = {
 	description: 'Sends a picture that represents happiness',
 	aliases: ['smile', 'yay'],
 	execute(message) {
-        const happyEmbed = new Discord.RichEmbed()
+        const dir = './happy';
+        fs.readdir(dir, (err, files) => {
+            const random = Math.ceil(Math.random() * files.length);
+            console.log(random);
+
+            const happyEmbed = new Discord.RichEmbed()
             .setTitle('Happy!')
-            .setThumbnail('https://i.pinimg.com/originals/14/7b/ba/147bba012d5781ead622f9c2a4a02be2.gif')
+            .attachFiles([`happy/${random}.gif`])
+            .setImage(`attachment://${random}.gif`)
             .setDescription('Happiness is the cure to everything!');
 
-		message.channel.send(happyEmbed);
+		    message.channel.send(happyEmbed);
+        });
+        
 	},
 };
