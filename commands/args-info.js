@@ -1,9 +1,12 @@
 module.exports = {
 	name: 'args-info',
-	description: 'Returns argument information in array format',
+	description: 'Information about the arguments provided.',
 	args: true,
-	usage: '<list>',
 	execute(message, args) {
-        message.channel.send(`Command name: ${command}\nArguments: ${args}`);
+		if (args[0] === 'foo') {
+			return message.channel.send('bar');
+		}
+
+		message.channel.send(`First argument: ${args[0]}`);
 	},
 };
